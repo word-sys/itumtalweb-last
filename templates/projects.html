@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Projects{% endblock %}
+
+{% block content %}
+<div class="topnav" id="myTopnav">
+    <a href="{% url 'home' %}" class="active">Home</a>
+    <a href="https://www.etwinning.net/tr/pub/index.htm">eTwinning</a>
+    <a href="{% url 'place' %}">Our Location</a>
+    <div class="dropdown">
+      <button class="dropbtn">Our Projects
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="{% url 'projects' %}">About Projects</a>
+        <a href="{% url 'erasmus' %}">ERASMUS</a>
+        <a href="{% url 'harezmi' %}">HAREZMİ</a>
+        <a href="{% url 'other' %}">Other Projects</a>
+      </div>
+    </div> 
+    <div class="dropdown">
+        <button class="dropbtn">About School
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+          <a href="{% url 'education' %}">Our Education</a>
+          <a href="{% url 'staff' %}">Our Staff</a>
+          <a href="https://itumtal.itu.edu.tr/galeri">Pictures</a>
+          <a href="{% url 'history' %}">Our History</a>
+        </div>
+      </div>
+      <a href="{% url 'timetable' %}">Timetable</a>  
+    <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+  </div>
+<div class="container">
+    <section class="intro">
+        <h2>Projects</h2>
+    </section>
+    <section class="info">
+        <h2>Important Information About Projects</h2>
+        <p>Why Projects Are Important?</p>
+        <p>Projects play a crucial role in both personal and professional development, offering numerous benefits that contribute to growth, learning, and achievement. Here are several reasons why projects are essential:</p>
+        <p>1. Application of Knowledge: Projects provide an opportunity to apply theoretical knowledge gained from education or training into practical, real-world situations. This application bridges the gap between learning and doing, reinforcing understanding and skills.</p>
+        <p>2. Skill Development: Engaging in projects enhances a wide range of skills, including critical thinking, problem-solving, communication, and collaboration. These skills are invaluable in professional environments and contribute to personal effectiveness.</p>
+        <p>3. Time Management: Managing projects requires planning, organization, and adherence to deadlines. These practices improve time management skills, ensuring efficient use of resources and meeting project milestones effectively.</p>
+        <p>4. Creativity and Innovation: Projects often necessitate creative thinking to overcome challenges and find innovative solutions. This fosters a mindset of innovation and encourages individuals to think outside the box.</p>
+        <p>5. Building Confidence: Successfully completing projects boosts self-confidence and self-esteem. It validates one's abilities and reinforces the belief in their capacity to tackle complex tasks and achieve goals.</p>
+        <p>6. Career Advancement: Employers value candidates with a proven track record of successfully managing and completing projects. A strong project portfolio demonstrates initiative, leadership potential, and the ability to deliver results.</p>
+        <p>7. Personal Growth: Beyond professional benefits, projects contribute to personal growth by expanding knowledge, acquiring new skills, and fostering a sense of accomplishment. They provide opportunities for continuous learning and development.</p>
+        <p>8. Teamwork and Collaboration: Many projects require collaboration with others, fostering teamwork and interpersonal skills. Learning to work effectively in a team setting enhances communication, conflict resolution, and collective problem-solving abilities.</p>
+        <p>9. Long-term Goals: Projects often align with long-term goals, whether personal aspirations or organizational objectives. They provide a structured approach to pursuing and achieving these goals, breaking them down into manageable tasks and milestones.</p>
+        <p>10. Adaptability and Resilience: Projects can face unexpected challenges and setbacks, requiring adaptability and resilience to overcome them. These experiences build perseverance and the ability to navigate uncertainties effectively.</p>
+        <p>11. Impact and Contribution: Projects have the potential to create meaningful impact, whether in community initiatives, business ventures, or personal endeavors. They enable individuals to contribute positively to their surroundings and make a difference.</p>
+        <p>In conclusion, projects are more than just tasks to be completed; they are vehicles for growth, learning, and achievement. Whether in education, career development, or personal pursuits, engaging in projects enhances skills, builds confidence, fosters creativity, and contributes to both individual success and collective progress. Embracing projects as opportunities for growth can lead to fulfilling experiences and significant accomplishments in various facets of life.</p>
+    </section>
+</div>
+
+<div class="col">
+    <a href="https://fatihprojesi.meb.gov.tr/" target="_blank">
+        <img src="{% static 'fatih.png' %}" alt="Fatih Projesi" class="img-fluid" displaymode="Original" style="height: 84px;">
+    </a>
+    <a href="https://www.guvenlicocuk.org.tr/" target="_blank">
+        <img src="{% static 'a.png' %}" alt="Guvenli Internet" class="img-fluid" displaymode="Original" style="height: 85px;">
+    </a>
+    <a href="https://www.youtube.com/channel/UCjkTVHiwXwnMaEXEqQpjv3g" target="_blank">
+        <img src="{% static 'yutup.jpg' %}" alt="Youtube" class="img-fluid" displaymode="Original" style="height: 85px;">
+    </a>
+    <a href="https://www.eba.gov.tr/" target="_blank">
+        <img src="{% static 'eba.jpg' %}" alt="Youtube" class="img-fluid" displaymode="Original" style="height: 85px;">
+    </a>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card text-center mt-5">
+                <div class="card-header">
+                    {% if user.is_authenticated %}
+                        <h5 class="card-title">You are signed in as {{ user.username }}</h5>
+                    {% else %}
+                        <h5 class="card-title">You are not logged in</h5>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    {% if user.is_authenticated %}
+                        <p class="card-text">What would you like to do?</p>
+                        <a href="{% url 'password_change' %}" class="btn btn-primary">Change Password</a>
+                        <form action="{% url 'logout' %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-danger ml-2">Log Out</button>
+                        </form>
+                    {% else %}
+                        <p class="card-text">Please log in or reset your password if you forgot.</p>
+                        <a href="{% url 'login' %}" class="btn btn-primary">Log In</a>
+                        <a href="{% url 'password_reset' %}" class="btn btn-outline-primary ml-2">Forgot Password?</a>
+                        <p class="card-text">Don't have an account? Create one now.</p>
+                        <a href="{% url 'signup' %}" class="btn btn-primary">Sign Up</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

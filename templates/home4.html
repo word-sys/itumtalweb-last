@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="topnav" id="myTopnav">
+    <a href="{% url 'home' %}" class="active">Home</a>
+    <a href="https://www.etwinning.net/tr/pub/index.htm">eTwinning</a>
+    <a href="{% url 'place' %}">Our Location</a>
+    <div class="dropdown">
+      <button class="dropbtn">Our Projects 
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="{% url 'projects' %}">About Projects</a>
+        <a href="{% url 'erasmus' %}">ERASMUS</a>
+        <a href="https://itumtal.meb.k12.tr/icerikler/ogrencilerimiz-arduino-anlatiyor_11558349.html">HAREZMİ</a>
+        <a href="{% url 'other' %}">Other Projects</a>
+      </div>
+    </div> 
+    <div class="dropdown">
+        <button class="dropbtn">About School 
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+          <a href="{% url 'education' %}">Our Education</a>
+          <a href="{% url 'staff' %}">Our Staff</a>
+          <a href="https://itumtal.itu.edu.tr/galeri">Pictures</a>
+          <a href="{% url 'history' %}">Our History</a>
+        </div>
+      </div> 
+    <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+  </div>
+
+<div class="container">
+    <section class="intro">
+        <h2>About Us</h2>
+        <p>Welcome to ITU MTAL, where excellence meets education.</p>
+    </section>
+    
+    <section class="info">
+        <h2>Important Information About School</h2>
+        <p>The reason for the existence of our school is to ensure the continuation of the education of the professions that are our field of education, to prepare individuals for higher education for the development of this education, to support the productivity of students, to educate individuals who are open to technological developments and innovations in vocational education and who follow the innovations closely, and who have national moral values.</p>
+        <p>There are around 100 project teams in our school. Our teams achieve many successes in national and international competitions.</p>
+        <p>High can we raise the bar in vocational high schools, to which many countries of the world owe their economic development? This was the first question we asked ourselves as ITU Vocational and Technical Anatolian High School entered a new era.</p>
+        <p>We have incorporated ITU's basic principles such as expertise, research, being a follower of technology and visionary into the DNA of ITU MTAL. Our aim is to train new ITU students, starting from high school age.</p>
+        <p>We aimed to help our students develop high-level skills within the framework of science, technology and sector dynamics. We believed that pure knowledge is the way to transform them into individuals who can produce solutions to local and global problems.</p>
+        <p>With the aim of becoming one of the most important vocational high schools in our country, we set out to educate the best in our field.</p>
+    </section>
+</div>
+
+<div class="col">
+    <a href="https://fatihprojesi.meb.gov.tr/" target="_blank">
+        <img src="{% static 'fatih.png' %}" alt="Fatih Projesi" class="img-fluid" displaymode="Original" style="height: 84px;">
+    </a>
+    <a href="https://www.guvenlicocuk.org.tr/" target="_blank">
+        <img src="{% static 'a.png' %}" alt="Guvenli Internet" class="img-fluid" displaymode="Original" style="height: 85px;">
+    </a>
+    <a href="https://www.youtube.com/channel/UCjkTVHiwXwnMaEXEqQpjv3g" target="_blank">
+        <img src="{% static 'yutup.jpg' %}" alt="Youtube" class="img-fluid" displaymode="Original" style="height: 85px;">
+    </a>
+    <a href="https://www.eba.gov.tr/" target="_blank">
+        <img src="{% static 'eba.jpg' %}" alt="Youtube" class="img-fluid" displaymode="Original" style="height: 85px;">
+    </a>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card text-center mt-5">
+                <div class="card-header">
+                    {% if user.is_authenticated %}
+                        <h5 class="card-title">You are signed in as {{ user.username }}</h5>
+                    {% else %}
+                        <h5 class="card-title">You are not logged in</h5>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    {% if user.is_authenticated %}
+                        <p class="card-text">What would you like to do?</p>
+                        <a href="{% url 'password_change' %}" class="btn btn-primary">Change Password</a>
+                        <form action="{% url 'logout' %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-danger ml-2">Log Out</button>
+                        </form>
+                    {% else %}
+                        <p class="card-text">Please log in or reset your password if you forgot.</p>
+                        <a href="{% url 'login' %}" class="btn btn-primary">Log In</a>
+                        <a href="{% url 'password_reset' %}" class="btn btn-outline-primary ml-2">Forgot Password?</a>
+                        <p class="card-text">Don't have an account? Create one now.</p>
+                        <a href="{% url 'signup' %}" class="btn btn-primary">Sign Up</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Education{% endblock %}
+
+{% block content %}
+<div class="topnav" id="myTopnav">
+    <a href="{% url 'home' %}" class="active">Home</a>
+    <a href="https://www.etwinning.net/tr/pub/index.htm">eTwinning</a>
+    <a href="{% url 'place' %}">Our Location</a>
+    <div class="dropdown">
+      <button class="dropbtn">Our Projects
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="{% url 'projects' %}">About Projects</a>
+        <a href="{% url 'erasmus' %}">ERASMUS</a>
+        <a href="{% url 'harezmi' %}">HAREZMİ</a>
+        <a href="{% url 'other' %}">Other Projects</a>
+      </div>
+    </div> 
+    <div class="dropdown">
+        <button class="dropbtn">About School
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+          <a href="{% url 'education' %}">Our Education</a>
+          <a href="{% url 'staff' %}">Our Staff</a>
+          <a href="https://itumtal.itu.edu.tr/galeri">Pictures</a>
+          <a href="{% url 'history' %}">Our History</a>
+        </div>
+      </div>
+      <a href="{% url 'timetable' %}">Timetable</a>  
+    <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+  </div>
+<div class="container">
+    <section class="intro">
+        <h2>Education</h2>
+        <p>Welcome to ITU MTAL, where excellence meets education.</p>
+    </section>
+    
+    <section class="info">
+        <p>We strive to turn our innate talents into skills.We search for professions that suit our interests and abilities.</p>
+        <p>What will the professions we are currently asking and investigating be like in the 2030s? Software, physical robots, etc. How much of a place will it take in our lives? How much do we know about our abilities? How should we prepare for the future with the talents we have? Will we look for a job in the future or will we be called?</p>
+        <p>Knowledge, talent, etc. that will move the industry forward. Will we be a person who cannot be shared because we are equipped with qualities?</p>
+        <p>Dear young people, we have beautiful schools in our country that appeal to you in different fields.One of these is ITU Vocational and Technical Anatolian High School.It provides education and training in the fields of Maritime, Information Technologies and Electrical-Electronic Technologies.</p>
+        <p>If you have interest and talent in these fields and are ready to achieve great success in the world of tomorrow, ITU MTAL is just for you. If you say you do research and development, contribute to science, and have an entrepreneurial spirit, we are waiting for you. If you like discipline and the wealth of peers, we are waiting for you. If you say you will work with national, spiritual, moral and Ahi culture, we are waiting for you. If you say that you will develop high value-added technologies and use resources efficiently for sustainability and security on a global scale, we are waiting for you.</p>
+        <p>ITU MTAL is the place where the architects, engineers, scientists and entrepreneurs of the future meet.</p>
+        <p>In line with technological developments, vocational high schools offer environments suitable for the development of mind, emotion, and socialization in body and soul dimensions.In addition to revealing innate talents, the spiritual dimension with the Ahi culture; The physical dimension is addressed through production.</p>
+        <p>Our children, who are educated by touching and feeling at an early age in practical courses in vocational high schools, can be more easily prepared for the global competitive environment.</p>
+        <p>Our children come together at an early age to plan, program, project and produce. When working together, they demonstrate their common understanding, capabilities and skills. They gain experience by trying and making mistakes.</p>
+        <p>Most importantly, they gain a culture of working together. Their ability to take on more responsibility increases.</p>
+    </section>
+</div>
+
+<div class="col">
+    <a href="https://fatihprojesi.meb.gov.tr/" target="_blank">
+        <img src="{% static 'fatih.png' %}" alt="Fatih Projesi" class="img-fluid" displaymode="Original" style="height: 84px;">
+    </a>
+    <a href="https://www.guvenlicocuk.org.tr/" target="_blank">
+        <img src="{% static 'a.png' %}" alt="Guvenli Internet" class="img-fluid" displaymode="Original" style="height: 85px;">
+    </a>
+    <a href="https://www.youtube.com/channel/UCjkTVHiwXwnMaEXEqQpjv3g" target="_blank">
+        <img src="{% static 'yutup.jpg' %}" alt="Youtube" class="img-fluid" displaymode="Original" style="height: 85px;">
+    </a>
+    <a href="https://www.eba.gov.tr/" target="_blank">
+        <img src="{% static 'eba.jpg' %}" alt="Youtube" class="img-fluid" displaymode="Original" style="height: 85px;">
+    </a>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card text-center mt-5">
+                <div class="card-header">
+                    {% if user.is_authenticated %}
+                        <h5 class="card-title">You are signed in as {{ user.username }}</h5>
+                    {% else %}
+                        <h5 class="card-title">You are not logged in</h5>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    {% if user.is_authenticated %}
+                        <p class="card-text">What would you like to do?</p>
+                        <a href="{% url 'password_change' %}" class="btn btn-primary">Change Password</a>
+                        <form action="{% url 'logout' %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-danger ml-2">Log Out</button>
+                        </form>
+                    {% else %}
+                        <p class="card-text">Please log in or reset your password if you forgot.</p>
+                        <a href="{% url 'login' %}" class="btn btn-primary">Log In</a>
+                        <a href="{% url 'password_reset' %}" class="btn btn-outline-primary ml-2">Forgot Password?</a>
+                        <p class="card-text">Don't have an account? Create one now.</p>
+                        <a href="{% url 'signup' %}" class="btn btn-primary">Sign Up</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

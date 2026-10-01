@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Harezmi{% endblock %}
+
+{% block content %}
+<div class="topnav" id="myTopnav">
+    <a href="{% url 'home' %}" class="active">Home</a>
+    <a href="https://www.etwinning.net/tr/pub/index.htm">eTwinning</a>
+    <a href="{% url 'place' %}">Our Location</a>
+    <div class="dropdown">
+      <button class="dropbtn">Our Projects 
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="{% url 'projects' %}">About Projects</a>
+        <a href="{% url 'erasmus' %}">ERASMUS</a>
+        <a href="{% url 'harezmi' %}">HAREZMİ</a>
+        <a href="{% url 'other' %}">Other Projects</a>
+      </div>
+    </div> 
+    <div class="dropdown">
+        <button class="dropbtn">About School 
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+          <a href="{% url 'education' %}">Our Education</a>
+          <a href="{% url 'staff' %}">Our Staff</a>
+          <a href="https://itumtal.itu.edu.tr/galeri">Pictures</a>
+          <a href="{% url 'history' %}">Our History</a>
+        </div>
+      </div>
+      <a href="{% url 'timetable' %}">Timetable</a>  
+    <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+  </div>
+
+<div class="container">
+    <section class="intro">
+        <h2>HAREZMI</h2>
+    </section>
+    
+    <section class="info">
+        <iframe width="1024" height="576"
+        src="https://www.youtube.com/embed/eosUZp7a1ow">
+        </iframe> 
+    </section>
+</div>
+
+<div class="col">
+    <a href="https://fatihprojesi.meb.gov.tr/" target="_blank">
+        <img src="{% static 'fatih.png' %}" alt="Fatih Projesi" class="img-fluid" displaymode="Original" style="height: 84px;">
+    </a>
+    <a href="https://www.guvenlicocuk.org.tr/" target="_blank">
+        <img src="{% static 'a.png' %}" alt="Guvenli Internet" class="img-fluid" displaymode="Original" style="height: 85px;">
+    </a>
+    <a href="https://www.youtube.com/channel/UCjkTVHiwXwnMaEXEqQpjv3g" target="_blank">
+        <img src="{% static 'yutup.jpg' %}" alt="Youtube" class="img-fluid" displaymode="Original" style="height: 85px;">
+    </a>
+    <a href="https://www.eba.gov.tr/" target="_blank">
+        <img src="{% static 'eba.jpg' %}" alt="Youtube" class="img-fluid" displaymode="Original" style="height: 85px;">
+    </a>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="card text-center mt-5">
+                <div class="card-header">
+                    {% if user.is_authenticated %}
+                        <h5 class="card-title">You are signed in as {{ user.username }}</h5>
+                    {% else %}
+                        <h5 class="card-title">You are not logged in</h5>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    {% if user.is_authenticated %}
+                        <p class="card-text">What would you like to do?</p>
+                        <a href="{% url 'password_change' %}" class="btn btn-primary">Change Password</a>
+                        <form action="{% url 'logout' %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-danger ml-2">Log Out</button>
+                        </form>
+                    {% else %}
+                        <p class="card-text">Please log in or reset your password if you forgot.</p>
+                        <a href="{% url 'login' %}" class="btn btn-primary">Log In</a>
+                        <a href="{% url 'password_reset' %}" class="btn btn-outline-primary ml-2">Forgot Password?</a>
+                        <p class="card-text">Don't have an account? Create one now.</p>
+                        <a href="{% url 'signup' %}" class="btn btn-primary">Sign Up</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
